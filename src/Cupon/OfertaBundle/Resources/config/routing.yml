@@ -1,0 +1,5 @@
+OfertaBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: OfertaBundle:Default:index }
+
+
