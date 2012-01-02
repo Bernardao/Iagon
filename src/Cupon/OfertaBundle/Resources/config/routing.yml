@@ -1,5 +1,10 @@
+#src/Cupon/OfertaBundle/Resources/config/routing.yml
 OfertaBundle_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: OfertaBundle:Default:index }
 
+pagina_ayuda:
+    pattern: /ayuda
+    defaults: { _controller: OfertaBundle:Default:ayuda }
+    
 

@@ -2,10 +2,6 @@ _welcome:
     pattern:  /
     defaults: { _controller: AcmeDemoBundle:Welcome:index }
     
-pagina_ayuda:
-    pattern: /ayuda
-    defaults: { _controller: OfertaBundle:Default:ayuda }
-
 _demo_secured:
     resource: "@AcmeDemoBundle/Controller/SecuredController.php"
     type:     annotation
