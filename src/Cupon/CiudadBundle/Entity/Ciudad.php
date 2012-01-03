@@ -31,7 +31,8 @@ class Ciudad{
     }
     public function setNombre($nombre){
         $this->nombre=$nombre;
-        $this->slug=Util::getSlug(nombre);
+        $this->slug=Util::getSlug($nombre);
+        
     }
     public function getNombre(){
         return $this->nombre;
