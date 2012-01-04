@@ -8,16 +8,39 @@ use Cupon\CiudadBundle\Entity\Ciudad;
 class ciudades implements FixtureInterface{
     public function load($manager){
         $ciudades=array(
-            array('nombre'=>'Madrid'),
-            array('nombre'=>'Barcelona'),
+            'Madrid',
+            'Barcelona',
+            'Valencia',
+            'Sevilla',
+            'Zaragoza',
+            'Málaga',
+            'Murcia',
+            'Palma de Mallorca',
+            'Las Palmas de Gran Canaria',
+            'Bilbao',
+            'Alicante',
+            'Córdoba',
+            'Valladolid',
+            'Vigo',
+            'Gijón',
+            'Hospitalet de Llobregat',
+            'La Coruña',
+            'Granada',
+            'Vitoria-Gasteiz',
+            'Elche',
+            'Oviedo',
+            'Santa Cruz de Tenerife',
+            'Badalona',
+            'Cartagena',
+            'Terrasa',
             );
 
-        foreach ($ciudades as $ciudad){
-            $entidad=new Ciudad();
+        foreach ($ciudades as $nombre){
+            $ciudad=new Ciudad();
 
-            $entidad->setNombre($ciudad['nombre']);
+            $ciudad->setNombre($nombre);
 
-            $manager->persist($entidad);
+            $manager->persist($ciudad);
         }
         $manager->flush();
     }

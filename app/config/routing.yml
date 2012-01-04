@@ -4,6 +4,7 @@
 #   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
 #   prefix:   /_internal
 
+
 UsuarioBundle:
     resource: "@UsuarioBundle/Resources/config/routing.yml"
     prefix:   /
@@ -27,6 +28,3 @@ pagina_estatica:
 portada:
     pattern: /
     defaults: { _controller: OfertaBundle:Default:portada }
-
-
-

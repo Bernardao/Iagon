@@ -58,3 +58,6 @@ swiftmailer:
 jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
+
+parameters:
+    cupon.ciudad_por_defecto: '1'

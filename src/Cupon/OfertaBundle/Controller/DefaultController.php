@@ -16,9 +16,17 @@ class DefaultController extends Controller{
         $em= $this->getDoctrine()->getEntityManager();
         
         $oferta= $em->getRepository('OfertaBundle:Oferta')->findOneBy(array(
-            'ciudad'            => 3,
+            'ciudad'            => $this->container->getParameter('cupon.ciudad_por_defecto'),
+            //3,
             'fecha_publicacion' => new \DateTime('today')
         ));
+        
+        if (!$oferta){
+            throw $this->createNotFoundException(
+                'No se ha encontrado la oferta del día'
+            );
+        }
+            
         return $this->render(
                 'OfertaBundle:Default:portada.html.twig',
                 array('oferta' => $oferta)
