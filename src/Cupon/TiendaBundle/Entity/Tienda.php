@@ -83,7 +83,7 @@ class Tienda {
      */
     public function setNombre($nombre){
         $this->nombre = $nombre;
-        $this->slug= Util::getSlug(nombre);
+        $this->slug= Util::getSlug($nombre);
     }
 
     /**

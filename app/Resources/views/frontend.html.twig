@@ -1,44 +1,31 @@
 
 {# /app/Resources/views/Default/frontend.html.twig #}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>{% block title %}{% endblock %} | Cupon</title>
-    </head>
-    <body id="{% block id '' %}">
-        <div id="contenedor">
-            <header>
-                <h1><a href="{{ path('portada') }}">CUPON</a></h1>
-                <nav>
-                    <ul>
-                        <li><a href="{{ path('portada') }}">Oferta del día</a></li>
-                        <li><a href="#">Ofertas recientes</a></li>
-                        <li><a href="#">Mis ofertas</a></li>
-                    </ul>
-                </nav>
-            </header>
-            <article>
-                {% block article %}{% endblock %}
-            </article>
-            <aside>
-                {% block aside %}{% endblock %}
-            </aside>
-            <footer>
-                &copy; {{ 'now' | date('Y') }} - Cupon
-                <a href="{{ path('pagina_estatica', { 'pagina': 'ayuda' }) }}">
-                    Ayuda
-                </a>
-                <a href="{{ path('pagina_estatica', { 'pagina': 'contacto'}) }}">
-                    Contacto
-                </a>
-                <a href="{{ path('pagina_estatica', { 'pagina': 'privacidad'}) }}">
-                    Privacidad
-                </a>
-                <a href="{{ path('pagina_estatica', { 'pagina': 'sobre-nosotros'}) }}">
-                    Sobre nosotros
-                </a>
-            </footer>
-        </div>
-    </body>
-</html>
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('bundles/oferta/css/normalizar.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/oferta/css/comun.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('bundles/oferta/css/frontend.css') }}" rel="stylesheet" type="text/css" />
+
+{% endblock %}
+{% block javascripts %}{% endblock %}
+
+{% block body %}
+    <header>
+        <h1><a href="{{ path('portada', { 'ciudad': 'madrid' }) }}">CUPON</a></h1>
+        <nav>
+            <ul>
+                <li><a href="{{ path('portada', { 'ciudad': 'madrid' }) }}">Oferta del día</a></li>
+                <li><a href="#">Ofertas recientes</a></li>
+                <li><a href="#">Mis ofertas</a></li>
+            </ul>
+        </nav>
+    </header>
+    <article>
+        {% block article %}{% endblock %}
+    </article>
+    <aside>
+        {% block aside %}{% endblock %}
+    </aside>
+{% endblock %}
+            

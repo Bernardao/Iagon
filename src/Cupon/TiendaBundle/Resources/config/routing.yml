@@ -1,3 +1,8 @@
-TiendaBundle_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: TiendaBundle:Default:index }
+# Ruta completa de la portada (con el slug de la ciudad)
+portada:
+    pattern: /{ciudad}
+    defaults: { _controller: OfertaBundle:Default:portada }
+# Ruta simple de la portada
+_portada:
+    pattern: /
+    defaults: { _controller: OfertaBundle:Default:portada }

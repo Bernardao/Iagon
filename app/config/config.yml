@@ -11,7 +11,7 @@ framework:
     form:            true
     csrf_protection: true
     validation:      { enable_annotations: true }
-    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    templating:      { engines: ['twig'],  assets_version: <?php echo date('Ymd') ?> }
     session:
         default_locale: %locale%
         auto_start:     true
@@ -60,4 +60,4 @@ jms_security_extra:
     secure_all_services: false
 
 parameters:
-    cupon.ciudad_por_defecto: '1'
+    cupon.ciudad_por_defecto: 'barcelona'
