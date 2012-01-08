@@ -1,0 +1,34 @@
+{# src/Cupon/OfertaBundle/Resources/views/Default/includes/mnioferta.html.twig #}
+
+{% set expirada=oferta.fechaExpiracion | date('YmdHis')<'now' | date('YmdHis') %}
+<section class="oferta mini">
+    <div class="descripcion">
+        <h2><a href="{{ path('oferta', { 'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">
+                {{ oferta.nombre }}
+        </a></h2>
+        {{ oferta.descripcion | mostrar_como_lista }}
+        {% if not expirada %}
+            <a class="boton" href="#">Comprar</a>
+        {% endif %}
+        <div class="estado {{ expirada ? 'expirada' : '' }}">
+            {% if not expirada %}
+                <strong>Faltan</strong>: {{ oferta.fechaExpiracion | cuenta_atras }}
+            {% else %}
+                Finalizada el {{ oferta.fechaExpiracion | date() }}
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="galeria">
+        <img alt="Fotografia de la oferta" src="{{ asset(directorio_imagenes ~ oferta.foto) }}">
+        
+        <p class="precio">{{ oferta.precio }} &euro; 
+            <span>{{ descuento(oferta.precio, oferta.descuento) }}</span>
+        </p>
+        
+        <p>Disfruta de esta oferta en 
+            <a href="#">{{ oferta.tienda.nombre }}</a>
+        </p>
+    </div>
+
+</section>

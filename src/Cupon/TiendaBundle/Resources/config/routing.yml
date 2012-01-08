@@ -1,8 +1,5 @@
-# Ruta completa de la portada (con el slug de la ciudad)
-portada:
-    pattern: /{ciudad}
-    defaults: { _controller: OfertaBundle:Default:portada }
-# Ruta simple de la portada
-_portada:
-    pattern: /
-    defaults: { _controller: OfertaBundle:Default:portada }
+# src/Cupon/TiendaBundle/Resources/config/routing.yml
+
+tienda_portada:
+    pattern: /{ciudad}/tiendas/{tienda}
+    defaults: { _controller: TiendaBundle:Default:portada }

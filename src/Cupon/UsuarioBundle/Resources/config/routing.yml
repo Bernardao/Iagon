@@ -1,3 +1,5 @@
-UsuarioBundle_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: UsuarioBundle:Default:index }
+# src/Cupon/UsuarioBundle/Resources/config/routing.yml
+
+usuario_compras:
+    pattern: /compras
+    defaults: { _controller: UsuarioBundle:Default:compras }
