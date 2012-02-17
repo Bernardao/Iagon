@@ -2,6 +2,7 @@
 // src/Cupon/TiendaBundle/DataFixtures/tiendas.php
 namespace Cupon\TiendaBundle\DataFixture\ORM;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -24,7 +25,7 @@ class tiendas extends AbstractFixture implements OrderedFixtureInterface, Contai
         $this->container= $container;
     }
        
-    public function load($manager){
+    public function load(ObjectManager $manager){
         //Obtener todas las ciudades de la bbdd
         $ciudades= $manager->getRepository('CiudadBundle:Ciudad')->findAll();
         

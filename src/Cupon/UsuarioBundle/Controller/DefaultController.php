@@ -9,7 +9,7 @@ class DefaultController extends Controller
 {
     
     public function comprasAction(){
-        $usuario_id=1;
+        $usuario_id=11;
         $em=$this->getDoctrine()->getEntityManager();
         $compras= $em->getRepository('UsuarioBundle:Usuario')->findTodasLasCompras($usuario_id);
         

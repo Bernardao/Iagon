@@ -2,6 +2,7 @@
 // src/Cupon/OfertaBundle/DataFixtures/ORM/ofertas.php
 namespace Cupon\OfertaBundle\DataFixtures\ORM;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -9,6 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+//use Doctrine\Common\Persistence\ObjectManager;
+
 
 use Cupon\CiudadBundle\Entity\Ciudad;
 use Cupon\OfertaBundle\Entity\Oferta;
@@ -29,7 +32,8 @@ class ofertas extends AbstractFixture implements OrderedFixtureInterface, Contai
         $this->container= $container;
     }
     
-    public function load($manager){
+    //public function load($manager){
+    public function load(ObjectManager $manager){
         //Obtener todas las tiendas y ciudades de la bbdd
         $ciudades=$manager->getRepository('CiudadBundle:Ciudad')->findAll();
         $tiendas=$manager->getRepository('TiendaBundle:Tienda')->findAll();

@@ -220,6 +220,7 @@ class Tienda {
     public function getCiudad(){
         return $this->ciudad;
     }
+    
     public function __toString(){
         return $this->getNombre();
     }

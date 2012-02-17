@@ -2,6 +2,7 @@
 // src/Cupon/CiudadBundle/DataFixtures/ORM/ciudades.php
 namespace Cupon\CiudadBundle\DataFixtures\ORM;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Cupon\CiudadBundle\Entity\Ciudad;
@@ -11,7 +12,7 @@ class ciudades extends AbstractFixture implements OrderedFixtureInterface{
         return 10;
     }
     
-    public function load($manager){
+    public function load(ObjectManager $manager){
         $ciudades=array(
             'Madrid',
             'Barcelona',
