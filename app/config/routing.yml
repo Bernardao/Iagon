@@ -5,9 +5,7 @@
 #   prefix:   /_internal
 
 
-UsuarioBundle:
-    resource: "@UsuarioBundle/Resources/config/routing.yml"
-    prefix:   /
+
 
 TiendaBundle:
     resource: "@TiendaBundle/Resources/config/routing.yml"
@@ -22,7 +20,11 @@ OfertaBundle:
     prefix:   /
 
 pagina_estatica:
-    pattern: /sitio/{pagina}/
+    pattern:  /sitio/{pagina}/
     defaults: { _controller: OfertaBundle:Sitio:estatica }
+
+UsuarioBundle:
+    resource: "@UsuarioBundle/Resources/config/routing.yml"
+    prefix:   /usuario
 
 
