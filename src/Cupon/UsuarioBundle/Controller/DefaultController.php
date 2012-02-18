@@ -1,5 +1,5 @@
 <?php
-
+// src/Cupon/UsuarioBundle/Controller/Default.php
 namespace Cupon\UsuarioBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 class DefaultController extends Controller{
     
     public function comprasAction(){
-        $usuario_id=11;
+        $usuario_id=12;
         $em=$this->getDoctrine()->getEntityManager();
         $compras= $em->getRepository('UsuarioBundle:Usuario')->findTodasLasCompras($usuario_id);
         

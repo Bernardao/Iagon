@@ -12,6 +12,23 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Cupon\UsuarioBundle\Entity\UsuarioRepository")
  */
 class Usuario implements UserInterface {
+    
+    //métodos de UserInterface que hay que definir
+    function equals(\Symfony\Component\Security\Core\User\UserInterface $usuario){
+        return $this->getEmail() == $usuario->getEmail();
+    }
+    
+    function eraseCredentials(){
+    }
+    
+    function getRoles(){
+        return array('ROLE_USUARIO');
+    }
+    
+    function getUsername(){
+        return $this->getEmail();
+    }
+    
     /**
      * @var integer $id
      *
@@ -54,7 +71,7 @@ class Usuario implements UserInterface {
      *
      * @ORM\Column(name="salt", type="string", length=255)
      */
-    private $salt;
+    protected $salt;
 
     /**
      * @var text $direccion
@@ -214,7 +231,7 @@ class Usuario implements UserInterface {
     {
         return $this->salt;
     }
-
+    
     /**
      * Set direccion
      *
@@ -360,21 +377,4 @@ class Usuario implements UserInterface {
     public function __construct(){
         $this->fecha_alta =new \DateTime();
     }
-    
-    //métodos de UserInterface que hay que definir
-    function equals(\Symfony\Component\Security\Core\User\UserInterface $usuario){
-        return $this->getEmail() == $usuario->getEmail();
-    }
-    
-    function eraseCredentials(){
-    }
-    
-    function getRoles(){
-        return array('ROLE_USUARIO');
-    }
-    
-    function getUsername(){
-        return $this->getEmail();
-    }
-
 }

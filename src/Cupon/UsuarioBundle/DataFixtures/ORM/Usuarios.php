@@ -1,11 +1,9 @@
 <?php
 namespace Cupon\UsuarioBundle\DataFixtures\ORM;
 
-
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -16,7 +14,7 @@ use Cupon\TiendaBundle\Entity\Tienda;
 use Cupon\OfertaBundle\Entity\Venta;
 
 
-class usuarios extends AbstractFixture implements OrderedFixtureInterface, FixtureInterface{
+class usuarios extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface{
     //class usuarios extends AbstractFixture implements FixtureInterface, ContainerAwareInterface{
     public function getOrder(){
         return 40;
@@ -109,5 +107,4 @@ class usuarios extends AbstractFixture implements OrderedFixtureInterface, Fixtu
         return $apellidos[rand(0, count($apellidos)-1)].' '.$apellidos[rand(0, count($apellidos)-1)];
     }
 }
-
 ?>
