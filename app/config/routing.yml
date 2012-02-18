@@ -4,9 +4,6 @@
 #   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
 #   prefix:   /_internal
 
-
-
-
 TiendaBundle:
     resource: "@TiendaBundle/Resources/config/routing.yml"
     prefix:   /

@@ -1,7 +1,8 @@
 <?php
-
+//src/Cupon/UsuarioBundle/Entity/Usuario.php
 namespace Cupon\UsuarioBundle\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,8 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Cupon\UsuarioBundle\Entity\UsuarioRepository")
  */
-class Usuario
-{
+class Usuario implements UserInterface {
     /**
      * @var integer $id
      *
@@ -100,7 +100,7 @@ class Usuario
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Cupon\CiudadBundle\Entity\Ciudad")
+     * @ORM\ManyToOne(targetEntity="Cupon\CiudadBundle\Entity\Ciudad", inversedBy="usuarios")
      */
     private $ciudad;
 
@@ -338,26 +338,43 @@ class Usuario
     /**
      * Set ciudad
      *
-     * @param string $ciudad
+     * @param Cupon\CiudadBundle\Entity\Ciudad $ciudad
      */
-    public function setCiudad(\Cupon\CiudadBundle\Entity\Ciudad $ciudad)
-    {
+    public function setCiudad(\Cupon\CiudadBundle\Entity\Ciudad $ciudad)    {
         $this->ciudad = $ciudad;
     }
 
     /**
      * Get ciudad
      *
-     * @return string 
+     * @return Cupon\CiudadBundle\Entity\Ciudad 
      */
-    public function getCiudad()
-    {
+    public function getCiudad(){
         return $this->ciudad;
     }
+    
     public function __toString(){
         return $this->getNombre().' '.$this->getApellidos();
     }
+    
     public function __construct(){
         $this->fecha_alta =new \DateTime();
     }
+    
+    //métodos de UserInterface que hay que definir
+    function equals(\Symfony\Component\Security\Core\User\UserInterface $usuario){
+        return $this->getEmail() == $usuario->getEmail();
+    }
+    
+    function eraseCredentials(){
+    }
+    
+    function getRoles(){
+        return array('ROLE_USUARIO');
+    }
+    
+    function getUsername(){
+        return $this->getEmail();
+    }
+
 }

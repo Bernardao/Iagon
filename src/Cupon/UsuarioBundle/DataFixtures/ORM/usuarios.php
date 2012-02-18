@@ -1,30 +1,37 @@
 <?php
 namespace Cupon\UsuarioBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\DataFixtures\FixtureInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-//use MiProyecto\UsuarioBundle\Entity\Usuario;
+
 use Cupon\CiudadBundle\Entity\Ciudad;
 use Cupon\UsuarioBundle\Entity\Usuario;
-
 use Cupon\OfertaBundle\Entity\Oferta;
 use Cupon\TiendaBundle\Entity\Tienda;
 use Cupon\OfertaBundle\Entity\Venta;
 
 
-class Usuarios implements FixtureInterface, ContainerAwareInterface{
+class usuarios extends AbstractFixture implements OrderedFixtureInterface, FixtureInterface{
+    //class usuarios extends AbstractFixture implements FixtureInterface, ContainerAwareInterface{
+    public function getOrder(){
+        return 40;
+    }
+    
     private $container;
 
-    public function setContainer(ContainerInterface $container = null)
-    {
+    public function setContainer(ContainerInterface $container = null){
         $this->container = $container;
-        //$this->contanier = $container;
     }
 
-    public function load(ObjectManager $manager)
-    {
+    public function load(ObjectManager $manager){
+        // Obtener todas las ciudades de la base de datos
+        $ciudades = $manager->getRepository('CiudadBundle:Ciudad')->findAll();
+        
         for ($i = 0; $i < 10; $i++) {
             $usuario = new Usuario();
 
@@ -33,8 +40,7 @@ class Usuarios implements FixtureInterface, ContainerAwareInterface{
             $usuario->setEmail('usuario'.$i.'@localhost');
             
             $usuario->setSalt(md5(time()));
-            //$salt = md5(time());
-
+            
             $passwordClaro = 'usuario'.$i;
             //$encoder = $this->container->get('security.encoder_factory')->getEncoder($usuario);
             //$encoder = $this->get('security.encoder_factory')->getEncoder($usuario);
@@ -42,8 +48,6 @@ class Usuarios implements FixtureInterface, ContainerAwareInterface{
             $password= $passwordClaro;
             //$usuario->setPasswordClear($passwordClaro);
             $usuario->setPassword($password);
-            //$usuario->setSalt($salt);
-
             
             $usuario->setDireccion('Gran Vía, 1');
             $usuario->setPermiteEmail(true);
@@ -54,9 +58,8 @@ class Usuarios implements FixtureInterface, ContainerAwareInterface{
             $usuario->setDni($dni.substr("TRWAGMYFPDXBNJZSQVHLCKE", strtr($dni, "XYZ", "012")%23, 1));
             
             $usuario->setNumeroTarjeta('1234567890123456');
-            //$usuario->setCiudad($ciudades[rand(0, count($ciudades)-1)]);
-            
-            
+            $usuario->setCiudad($ciudades[rand(0, count($ciudades)-1)]);
+
             $manager->persist($usuario);
         }
         $manager->flush();

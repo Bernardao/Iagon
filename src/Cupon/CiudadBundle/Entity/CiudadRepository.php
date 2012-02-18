@@ -16,6 +16,7 @@ class CiudadRepository extends EntityRepository{
         
         return $consulta->getResult();
     }
+    
 }
 
 ?>

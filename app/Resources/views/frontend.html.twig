@@ -34,7 +34,11 @@
         {% block article %}{% endblock %}
     </article>
     <aside>
-        {% block aside %}{% endblock %}
+        {% block aside %}
+            <section id="login">
+            {% render 'UsuarioBundle:Default:cajaLogin' %}
+            </section>
+        {% endblock %}
     </aside>
 {% endblock %}
             

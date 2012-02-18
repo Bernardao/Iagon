@@ -65,4 +65,4 @@ jms_security_extra:
     secure_all_services: false
 
 parameters:
-    cupon.ciudad_por_defecto: 'ciudad-2'
+    cupon.ciudad_por_defecto: 'malaga'

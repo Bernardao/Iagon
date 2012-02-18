@@ -2,31 +2,16 @@
 //src/Cupon/TiendaBundle/Entity/Tienda.php
 namespace Cupon\TiendaBundle\Entity;
 
-use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Cupon\OfertaBundle\Util\Util;
 
 /**
  * @ORM\Entity(repositoryClass="Cupon\TiendaBundle\Entity\TiendaRepository")
  */
-class Tienda implements UserInterface{
+class Tienda {
 
-    //métodos de UserInterface que hay que definir
-    function equals(\Symfony\Component\Security\Core\User\UserInterface $usuario){
-        return $this->getEmail() == $usuario->getEmail();
-    }
-    
-    function eraseCredentials(){
-    }
-    
-    function getRoles(){
-        return array('ROLE_USUARIO');
-    }
-    
-    function getUsername(){
-        return $this->getEmail();
-    }
     /**
+     *
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
