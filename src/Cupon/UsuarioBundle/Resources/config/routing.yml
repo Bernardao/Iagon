@@ -17,3 +17,7 @@ usuario_logout:
 usuario_registro:
     pattern: /registro
     defaults: { _controller: UsuarioBundle:Default:registro }
+
+usuario_perfil:
+    pattern: /perfil
+    defaults: { _controller: UsuarioBundle:Default:perfil }

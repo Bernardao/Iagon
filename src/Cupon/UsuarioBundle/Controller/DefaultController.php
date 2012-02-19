@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Cupon\UsuarioBundle\Entity\Usuario;
 use Cupon\UsuarioBundle\Form\Frontend\UsuarioType;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller{
     
@@ -105,5 +106,57 @@ class DefaultController extends Controller{
         return $this->render('UsuarioBundle:Default:registro.html.twig',
             array('formulario'=>$formulario->createView())
         );
+    }
+    
+    public function perfilAction(){
+        //Obtener los datos del usuario logueado y utilizarlos para rellenar un formulario de registro
+        
+        //para saber el tipo de petición POST o GET
+        $peticion= $this->getRequest();
+        
+        //Si la petición es GET, mostrar el formulario
+        //Si la petición es POST, actualizar la información del usuario con
+        //los nuevos datos obtenidos del formulario
+        $usuario= $this->get('security.context')->getToken()->getUser();
+        //se pasa un objeto con la info del usuario
+        $formulario= $this->createForm(new UsuarioType(), $usuario);       
+        
+        if ($peticion->getMethod() == 'POST'){
+            //guardamos passowrd antes de ejecutar bindRequest
+            $passwordOriginal= $formulario->getData()->getPassword();
+            
+            $formulario->bindRequest($peticion);
+            
+            if ($formulario->isValid()){
+                //actualizar el perfil del usuario
+                
+                if (null == $usuario->getPassword()){
+                    // miramos si user ha decidido cambiar pwd
+                    $usuario->setPassword($passwordOriginal);
+                }else{
+                    // user quiere cambiar pwd
+                    $encoder= $this->get('security.encoder_factory')
+                                    ->getEncoder($usuario);
+                    $passwordCodificado= $encoder->encodePassword(
+                            $usuario->getPassword(),
+                            $usuario->getSalt()
+                    );
+                    $usuario->setPassword($passwordCodificado);
+                }
+                //enviamos a bbdd actualización de perfil
+                $em= $this->getDoctrine()->getEntityManager();
+                $em->persist($usuario);
+                $em->flush();
+                
+                $this->get('session')->setFlash('info', 'Los datos de tu perfil se han actualizado correctamente');
+                
+                return $this->redirect($this->generateUrl('usuario_perfil'));
+            }
+        }
+        
+        return $this->render('UsuarioBundle:Default:perfil.html.twig', array(
+            'usuario' => $usuario,
+            'formulario' => $formulario->createView()
+        ));
     }
 }
