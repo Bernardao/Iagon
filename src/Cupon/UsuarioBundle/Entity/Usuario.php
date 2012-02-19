@@ -4,6 +4,7 @@ namespace Cupon\UsuarioBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Cupon\UsuarioBundle\Entity\Usuario
@@ -42,6 +43,7 @@ class Usuario implements UserInterface {
      * @var string $nombre
      *
      * @ORM\Column(name="nombre", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -63,6 +65,7 @@ class Usuario implements UserInterface {
      * @var string $password
      *
      * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\MinLength(6)
      */
     private $password;
 

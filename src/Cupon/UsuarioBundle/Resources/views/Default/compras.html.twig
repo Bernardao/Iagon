@@ -6,7 +6,7 @@
 {% block id 'compras' %}
 
 {% block article %}
-    <h1>{{ block('title') }}</h1>
+    <h1>{{ block('title') }}</h1>a
     {% for compra in compras %}
         {% include 'OfertaBundle:Default:includes/minioferta.html.twig' 
             with { 'oferta': compra.oferta,
@@ -17,5 +17,15 @@
 {% endblock %}
 
 {% block aside %}
-{# ... #}
+    {{ parent() }}
+    <section id="cercanas">
+        <h2>Ofertas en otras ciudades</h2>
+        <ul>
+            {% for ciudad in cercanas %}
+                <li>
+                    <a href="{{ path('ciudad_recientes', { 'ciudad': ciudad.slug }) }}">{{ ciudad.nombre }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
 {% endblock %}

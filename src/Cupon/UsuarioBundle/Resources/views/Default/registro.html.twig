@@ -1,0 +1,55 @@
+{# src/Cupon/UsuarioBunle/Resources/views/Default/registro.html.twig #}
+{% extends '::frontend.html.twig' %}
+
+{% block id 'usuario' %}
+
+{% block title %}Regístrate gratis como usuario{% endblock %}
+
+{% block article %}
+    <h1>{{ block('title') }}</h1>
+    
+    <form action="{{ path('usuario_registro') }}" method="post" {{ form_enctype(formulario) }}>
+        {{ form_errors(formulario) }}
+        <fieldset>
+            <legend>Datos personales</legend>
+            <div>
+                <strong>{{ form_label(formulario.nombre) }}</strong>
+                <div class="error">{{ form_errors(formulario.nombre) }}</div>
+                <span>{{ form_widget(formulario.nombre, { 
+                        'attr': {
+                            'accesskey' : 'n',
+                            'tabindex'  : 1,
+                            'class'     : 'destacado',
+                            'size'      : 25
+                        }
+                      }
+                    ) }}</span>
+            </div>
+            
+            {{ form_row(formulario.apellidos) }}
+            {{ form_row(formulario.fecha_nacimiento) }}
+            {{ form_row(formulario.dni) }}
+            {{ form_row(formulario.direccion) }}
+        </fieldset>
+        <fieldset>
+            <legend>Datos de acceso</legend>
+            {{ form_row(formulario.email) }}
+            {{ form_row(formulario.password) }}
+        </fieldset>
+        <fieldset>
+            <legend>Datos económicos</legend>
+            {{ form_row(formulario.numero_tarjeta) }}
+            {{ form_row(formulario.ciudad) }}
+        </fieldset>
+            
+        {{ form_row(formulario.permite_email) }}
+            
+        {{ form_rest(formulario) }}
+            
+        <input class="boton" type="submit" value="Registrarme" />
+    </form>
+{% endblock %}
+        
+{% block aside %}
+
+{% endblock %}

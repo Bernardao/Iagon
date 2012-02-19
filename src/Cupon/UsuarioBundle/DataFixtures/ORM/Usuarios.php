@@ -1,6 +1,8 @@
 <?php
+// src/Cupon/UsuarioBundle/DataFixture/ORM/usuarios.php
 namespace Cupon\UsuarioBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -14,7 +16,7 @@ use Cupon\TiendaBundle\Entity\Tienda;
 use Cupon\OfertaBundle\Entity\Venta;
 
 
-class usuarios extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface{
+class usuarios extends AbstractFixture implements OrderedFixtureInterface, FixtureInterface, ContainerAwareInterface{
     //class usuarios extends AbstractFixture implements FixtureInterface, ContainerAwareInterface{
     public function getOrder(){
         return 40;
@@ -30,22 +32,32 @@ class usuarios extends AbstractFixture implements OrderedFixtureInterface, Conta
         // Obtener todas las ciudades de la base de datos
         $ciudades = $manager->getRepository('CiudadBundle:Ciudad')->findAll();
         
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 500; $i++) {
             $usuario = new Usuario();
 
             $usuario->setNombre($this->getNombre());
             $usuario->setApellidos($this->getApellidos());
             $usuario->setEmail('usuario'.$i.'@localhost');
             
-            $usuario->setSalt(md5(time()));
+            $passwordEnClaro='usuario'.$i;
+            $salt=md5(time());
             
+            //$encoder= $this->get('security.encoder_factory')->getEncoder($usuario);
+            $encoder = $this->container->get('security.encoder_factory')->getEncoder($usuario);
+            $password= $encoder->encodePassword($passwordEnClaro, $salt);
+            
+            $usuario->setPassword($password);
+            $usuario->setSalt($salt);
+            
+            /*$usuario->setSalt(md5(time()));
+            $usuario->setSalt(md5(time()));
             $passwordClaro = 'usuario'.$i;
             //$encoder = $this->container->get('security.encoder_factory')->getEncoder($usuario);
             //$encoder = $this->get('security.encoder_factory')->getEncoder($usuario);
             //$password = $encoder->encodePassword($passwordClaro, $salt);
             $password= $passwordClaro;
             //$usuario->setPasswordClear($passwordClaro);
-            $usuario->setPassword($password);
+            $usuario->setPassword($password);*/
             
             $usuario->setDireccion('Gran Vía, 1');
             $usuario->setPermiteEmail(true);
