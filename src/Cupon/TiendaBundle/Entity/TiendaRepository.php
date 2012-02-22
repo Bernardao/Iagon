@@ -8,9 +8,9 @@ use Doctrine\ORM\EntityRepository;
 class TiendaRepository extends EntityRepository{
     
     public function findUltimasOfertasPublicadas($tienda_id, $limite=10){
-        $em= $this-getEntityManager();
+        $em= $this->getEntityManager();
         
-        $consulta= $em-createQuery('SELECT o, t
+        $consulta= $em->createQuery('SELECT o, t
                                     FROM OfertaBundle:Oferta o
                                     JOIN o.tienda t
                                     WHERE o.revisada=true
@@ -30,7 +30,7 @@ class TiendaRepository extends EntityRepository{
         $consulta= $em->createQuery('SELECT t, c 
                                     FROM TiendaBundle:Tienda t
                                     JOIN t.ciudad c 
-                                    WHERE c.slug=:ciudad
+                                    WHERE c.slug= :ciudad
                                     AND t.slug != :tienda');
         $consulta->setMaxResults(5);
         $consulta->setParameter('ciudad', $ciudad);

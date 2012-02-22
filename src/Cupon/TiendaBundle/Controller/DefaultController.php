@@ -1,5 +1,5 @@
 <?php
-
+// src/Cupon/TiendaBundle/Controller/DefaultController.php
 namespace Cupon\TiendaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -27,7 +27,10 @@ class DefaultController extends Controller{
         $cercanas= $em->getRepository('TiendaBundle:Tienda')->findCercanas($tienda->getSlug(),
                                                                             $tienda->getCiudad()->getSlug()
                 );
-        return $this-render('TiendaBundle:Default:portada.html.twig', array(
+        //para rss
+        $formato= $this->get('request')->getRequestFormat();
+        
+        return $this->render('TiendaBundle:Default:portada.'.$formato.'.twig', array(
             'tienda'   => $tienda,
             'ofertas'  => $ofertas,
             'cercanas' => $cercanas

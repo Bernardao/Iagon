@@ -3,14 +3,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>{% block title %}{% endblock %} | Cupon</title>
+        <title>{% block title %}{% endblock %} | Iagon</title>
         {% block stylesheets %}{% endblock %}
+        {% block rss %}{% endblock %}
     </head>
     <body id="{% block id '' %}">
         <div id="contenedor">
             {% block body %}{% endblock %}
             <footer>
-                &copy; {{ 'now'|date('Y') }} - Cupon
+                &copy; {{ 'now'|date('Y') }} - Iagon
                 <a href="{{ path('pagina_estatica', { 'pagina': 'ayuda' }) }}">Ayuda</a>
                 <a href="{{ path('pagina_estatica', { 'pagina': 'contacto' }) }}">Contacto</a>
                 <a href="{{ path('pagina_estatica', { 'pagina': 'privacidad' }) }}">Privacidad</a>

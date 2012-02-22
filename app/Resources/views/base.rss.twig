@@ -1,0 +1,29 @@
+{# app/Resources/base.rss.twig #}
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>{% block title %}{% endblock %}</title>
+        <link>{% block url %}{% endblock %}</link>
+        <description>{% block descripcion %}{% endblock %}</description>
+        <language>
+            {% block idioma %}
+            {{ app.request.session.locale }}
+            {% endblock %}
+        </language>
+        <pubDate>
+            {% block fechaPublicacion %}
+            {{ 'now'|date('r') }}
+            {% endblock %}
+        </pubDate>
+        <lastBuildDate>
+            {% block fechaCreacion %}
+            {{ 'now'|date('r') }}
+            {% endblock %}
+        </lastBuildDate>
+        <generator>Symfony2</generator>
+        <atom:link href="{% block self %}{% endblock %}" rel="self" type="application/rss+xml" />
+        {% block items %}
+        
+        {% endblock %}
+    </channel>
+</rss>
