@@ -1,14 +1,5 @@
 #src/Cupon/OfertaBundle/Resources/config/routing.yml
 
-# Ruta completa de la portada (con el slug de la ciudad)
-portada:
-    pattern: /{ciudad}
-    defaults: { _controller: OfertaBundle:Default:portada }
-# Ruta simple de la portada
-_portada:
-    pattern: /
-    defaults: { _controller: OfertaBundle:Default:portada }
-
 oferta:
     pattern: /{ciudad}/ofertas/{slug}
     defaults: { _controller: OfertaBundle:Default:oferta }

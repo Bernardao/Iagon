@@ -12,19 +12,19 @@ use Cupon\OfertaBundle\Util\Util;
 class Tienda implements UserInterface{
 
     //métodos de UserInterface que hay que definir
-    function equals(\Symfony\Component\Security\Core\User\UserInterface $usuario){
-        return $this->getEmail() == $usuario->getEmail();
+    function equals(UserInterface $usuario){
+        return $this->getLogin() == $usuario->getLogin();
     }
     
     function eraseCredentials(){
     }
     
     function getRoles(){
-        return array('ROLE_USUARIO');
+        return array('ROLE_TIENDA');
     }
     
     function getUsername(){
-        return $this->getEmail();
+        return $this->getLogin();
     }
     /**
      * @ORM\Id

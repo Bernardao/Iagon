@@ -7,8 +7,10 @@
         </a>
     </h1> 
     {{ oferta.descripcion | mostrar_como_lista }}
+    
     {% if not expirada %}
         <a class="boton" href="#">Comprar</a>
+        {# <a class="boton" href="{{ path('comprar': { 'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">Comprar</a> #}
     {% endif %}
 </section>
 
@@ -24,7 +26,7 @@
 
 <section class="estado {{ expirada ? 'expirada': '' }}">
     {%if not expirada %}
-        <div class="tiempo">
+        <div class="tiempo" id="tiempo">
             <strong>Faltan</strong>: {{ oferta.fechaExpiracion | cuenta_atras }}
         </div>
         <div class="compras">

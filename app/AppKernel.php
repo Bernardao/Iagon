@@ -22,6 +22,8 @@ class AppKernel extends Kernel
             new Cupon\TiendaBundle\TiendaBundle(),
             new Cupon\UsuarioBundle\UsuarioBundle(),
             new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+
 
         );
 

@@ -12,8 +12,7 @@ use Cupon\OfertaBundle\Util\Util;
  * @ORM\Entity(repositoryClass="Cupon\OfertaBundle\Entity\OfertaRepository")
 
  */
-class Oferta
-{
+class Oferta{
     /**
      * @var integer $id
      *

@@ -1,0 +1,31 @@
+# src/Cupon/TiendaBundle/Resources/config/extranet/routing.yml
+
+extranet_portada:
+    pattern:  /
+    defaults: { _controller: TiendaBundle:Extranet:portada }
+
+extranet_oferta_nueva:
+    pattern:  /oferta/nueva
+    defaults: { _controller: TiendaBundle:Extranet:ofertaNueva }
+
+extranet_oferta_editar:
+    pattern:  /oferta/editar/{id}
+    defaults: { _controller: TiendaBundle:Extranet:ofertaEditar }
+    
+extranet_oferta_ventas:
+    pattern:  /oferta/ventas/{slug}
+    defaults: { _controller: TiendaBundle:Extranet:ofertaVentas }
+
+extranet_perfil:
+    pattern:  /perfil
+    defaults: { _controller: TiendaBundle:Extranet:perfil }
+
+extranet_login:
+    pattern:  /login
+    defaults: { _controller: TiendaBundle:Extranet:login }
+
+extranet_login_check:
+    pattern:  /login_check
+
+extranet_logout:
+    pattern:  /logout

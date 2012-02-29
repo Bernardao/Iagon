@@ -32,7 +32,7 @@ class tiendas extends AbstractFixture implements OrderedFixtureInterface, Contai
         $i=1;
         foreach ($ciudades as $ciudad){
             for ($j=1; $j<=rand(2,5);$j++){
-                $id= $ciudad->getId();
+                //$id= $ciudad->getId();
                 
                 $tienda= new Tienda();
                 
@@ -41,12 +41,14 @@ class tiendas extends AbstractFixture implements OrderedFixtureInterface, Contai
                 $tienda->setLogin('tienda'.$i);
                 $tienda->setSalt(md5(time()));
                 
+                
+                //$passwordCodificado=$passwordEnClaro;
+                
+                $encoder= $this->container->get('security.encoder_factory')->getEncoder($tienda);
+                
+                
                 $passwordEnClaro='tienda'.$i;
-                $passwordCodificado=$passwordEnClaro;
-                
-                //$encoder= $this->container->get('security.encoder_factory')->getEncoder($tienda);
-                //$passwordCodificado=$encoder->encodePassword($passwordEnClaro, $tienda->getSalt());
-                
+                $passwordCodificado=$encoder->encodePassword($passwordEnClaro, $tienda->getSalt());
                 $tienda->setPassword($passwordCodificado);
                 
                 $tienda->setDescripcion($this->getDescripcion());

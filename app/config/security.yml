@@ -1,11 +1,26 @@
+# app/config/security.yml @
 security:
     firewalls:
+        extranet:
+            pattern:    ^/extranet
+            provider:   tiendas
+            anonymous:  ~
+            form_login:
+                login_path: extranet_login
+#                check_path: extranet_login_check
+#            form_login:
+#                login_path: /extranet/login
+                check_path: /extranet/login_check
+            logout:
+#                path:       /extranet/logout
+                path:       extranet_logout
         frontend:
-            pattern:     ^/
+            pattern:     ^/*
+            provider:    usuarios
             anonymous:   ~
             form_login:
-                login_path: /usuario/login
-                check_path: /usuario/login_check
+                login_path: usuario_login
+                check_path: usuario_login_check
             logout:
                 path: usuario_logout
             remember_me:
@@ -13,14 +28,19 @@ security:
                 lifetime: 3600
             switch_user: { role: ROLE_ADMIN }
     access_control:
-        - { path: ^/usuario/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/usuario/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/usuario/*, roles: ROLE_USUARIO }
+        - { path: ^/(es|en)/usuario/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(es|en)/usuario/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(es|en)/usuario/*, roles: ROLE_USUARIO }
+        - { path: ^/extranet/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/extranet/*, roles: ROLE_TIENDA }
     providers:
         usuarios:
             entity: { class: Cupon\UsuarioBundle\Entity\Usuario, property: email }
+        tiendas:
+            entity: { class: Cupon\TiendaBundle\Entity\Tienda, property: login }
     encoders:
         Cupon\UsuarioBundle\Entity\Usuario: { algorithm: sha512, iterations: 10 }
+        Cupon\TiendaBundle\Entity\Tienda:   { algorithm: sha512, iterations: 10 }
         #Cupon\UsuarioBundle\Entity\Usuario: plaintext
         #Symfony\Component\Security\Core\User\UserInterface: plaintext
         

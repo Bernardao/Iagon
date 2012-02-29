@@ -2,6 +2,8 @@
 // src/Cupong/OfertaBundle/Twig/Extension/CuponExtension.php
 namespace Cupon\OfertaBundle\Twig\Extension;
 
+use Symfony\Component\Translation\TranslatorInterface;
+
 class CuponExtension extends \Twig_Extension{
     
     public function getFunctions(){
@@ -45,36 +47,35 @@ class CuponExtension extends \Twig_Extension{
     
     public function cuentaAtras($fecha){
         $fecha = $fecha->format('Y,')
-        .($fecha->format('m')-1)
-        .$fecha->format(',d,H,i,s');
+            .($fecha->format('m')-1)
+            .$fecha->format(',d,H,i,s');
         $html = <<<EOJ
-        <script type="text/javascript">
-            function muestraCuentaAtras(){
-                var horas, minutos, segundos;
-                var ahora = new Date();
-                var fechaExpiracion = new Date($fecha);
-                var falta = Math.floor( (fechaExpiracion.getTime() - ahora.getTime()) /1000 );
-                if (falta < 0) {
-                    cuentaAtras = '-';
-                }else {
-                    horas = Math.floor(falta/3600);
-                    falta = falta % 3600;
-                    minutos = Math.floor(falta/60);
-                    falta = falta % 60;
-                    segundos = Math.floor(falta);
-                    cuentaAtras = (horas < 10 ? '0' + horas : horas)+ 'h '
-                    + (minutos < 10 ? '0' + minutos : minutos) + 'm '
-                    + (segundos < 10 ? '0' + segundos : segundos) + 's ';
-                    setTimeout('muestraCuentaAtras()', 1000);
-                }
-            document.getElementById('tiempo').innerHTML = '<strong>Faltan:</strong> '+cuentaAtras;
-        }
-        muestraCuentaAtras();
-        </script>
+<script type="text/javascript">
+function muestraCuentaAtras(){
+    var horas, minutos, segundos;
+    var ahora = new Date();
+    var fechaExpiracion = new Date($fecha);
+    var falta = Math.floor( (fechaExpiracion.getTime() - ahora.getTime()) /1000 );
+    if (falta < 0) {
+        cuentaAtras = '-';
+    }else {
+        horas = Math.floor(falta/3600);
+        falta = falta % 3600;
+        minutos = Math.floor(falta/60);
+        falta = falta % 60;
+        segundos = Math.floor(falta);
+        cuentaAtras = (horas < 10 ? '0' + horas : horas)+ 'h '
+        + (minutos < 10 ? '0' + minutos : minutos) + 'm '
+        + (segundos < 10 ? '0' + segundos : segundos) + 's ';
+        setTimeout('muestraCuentaAtras()', 1000);
+    }
+document.getElementById('tiempo').innerHTML = '<strong>Faltan:</strong> '+cuentaAtras;
+}
+muestraCuentaAtras();
+</script>
 EOJ;
     return $html;
     }
-    
-    
 }
+
 ?>
