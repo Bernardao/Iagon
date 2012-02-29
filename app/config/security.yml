@@ -1,5 +1,7 @@
 # app/config/security.yml @
 security:
+    acl:
+        connection: default
     firewalls:
         extranet:
             pattern:    ^/extranet
