@@ -11,8 +11,6 @@ use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 //use Doctrine\Common\Persistence\ObjectManager;
-
-
 use Cupon\CiudadBundle\Entity\Ciudad;
 use Cupon\OfertaBundle\Entity\Oferta;
 use Cupon\TiendaBundle\Entity\Tienda;
@@ -88,7 +86,7 @@ class ofertas extends AbstractFixture implements OrderedFixtureInterface, Contai
                 $manager->persist($oferta);
                 $manager->flush();
                 
-                /*
+                
                 //Otorgar el permiso adecuado a cada oferta utilizando la ACL
                 
                 //Obtener la identidad del objeto oferta y del usuario
@@ -113,7 +111,7 @@ class ofertas extends AbstractFixture implements OrderedFixtureInterface, Contai
                 
                 $acl->insertObjectAce($idUsuario, MaskBuilder::MASK_OPERATOR);
                 $proveedor->updateAcl($acl);
-                */
+                
             }
         }
     }
