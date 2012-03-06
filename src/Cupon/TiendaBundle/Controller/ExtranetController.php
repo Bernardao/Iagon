@@ -7,7 +7,10 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\Permission\MaskBuilder;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Cupon\TiendaBundle\Form\Extranet\TiendaType;
+use Cupon\OfertaBundle\Form\Extranet\OfertaType;
+use Cupon\OfertaBundle\Entity\Oferta;
 
 class ExtranetController extends Controller{
     public function loginAction(){
@@ -34,21 +37,38 @@ class ExtranetController extends Controller{
         ));
     }
     public function ofertaNuevaAction(){
-        $em =$this->getDoctrine()->getEntityManager();
+        $peticion= $this->getRequest();
         
-        if($formulario->isValid()){
-            $em->persist($oferta);
-            $em->flush();
-            
-            $tienda= $this->get('security.context')->getToken()->getUser();
-            
-            $idObjeto= ObjectIdentity::fromDomainObject($oferta);
-            $idUsuario= UserSecurityIdentity::fromAccount($tienda);
-            
-            $acl= $this->get('security.acl.provider')->creareAcl($idObjeto);
-            $acl->insertObjectAce($idUsuario, MaskBuilder::MASK_OPERATOR);
-            $this->get('security.acl.provider')->updateAcl($acl);
+        $oferta= new Oferta();
+        $formulario= $this->createForm(new OfertaType(), $oferta);
+        
+        if ($peticion->getMethod() == 'POST') {
+           $formulario->bindRequest($peticion); 
+        
+            if($formulario->isValid()){
+                // Completar las propiedades de la oferta que una tienda no puede establecer
+                $tienda=$this->get('security.context')->getToken()->getUser();
+                
+                $oferta->setCompras(0);
+                $oferta->setTienda($tienda);
+                $oferta->setCiudad($tienda->getCiudad());
+                
+                //copiar la foto subida y guardar la ruta
+                $oferta->subirFoto(
+                    $this->container->getParameter('cupon.directorio.imagenes')
+                );
+                
+                $em= $this->getDoctrine()->getEntityManager();
+                
+                $em->persist($oferta);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('extranet_portada'));
+            }
         }
+        return $this->render('TiendaBundle:Extranet:nueva.html.twig', array(
+            'formulario' => $formulario->createView()
+        ));
     }
     
     public function ofertaVentasAction($id){

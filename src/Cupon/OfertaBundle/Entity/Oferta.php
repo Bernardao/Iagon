@@ -4,6 +4,7 @@ namespace Cupon\OfertaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Cupon\OfertaBundle\Util\Util;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Cupon\OfertaBundle\Entity\Oferta
@@ -26,6 +27,7 @@ class Oferta{
      * @var string $nombre
      *
      * @ORM\Column(name="nombre", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -33,6 +35,7 @@ class Oferta{
      * @var string $slug
      *
      * @ORM\Column(name="slug", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $slug;
 
@@ -40,6 +43,8 @@ class Oferta{
      * @var text $descripcion
      *
      * @ORM\Column(name="descripcion", type="text")
+     * @Assert\NotBlank()
+     * @Assert\MinLength(30)
      */
     private $descripcion;
 
@@ -54,6 +59,7 @@ class Oferta{
      * @var string $foto
      *
      * @ORM\Column(name="foto", type="string", length=255)
+     * @Assert\Image(maxSize= "500k")
      */
     private $foto;
 
@@ -61,20 +67,22 @@ class Oferta{
      * @var decimal $precio
      *
      * @ORM\Column(name="precio", type="decimal")
+     * @Assert\Min(0)
      */
     private $precio;
 
     /**
      * @var decimal $descuento
      *
-     * @ORM\Column(name="descuento", type="decimal")
+     * @ORM\Column(name="descuento", type="decimal", scale=2)
      */
     private $descuento;
 
     /**
      * @var datetime $fecha_publicacion
      *
-     * @ORM\Column(name="fecha_publicacion", type="datetime")
+     * @ORM\Column(name="fecha_publicacion", type="datetime", nullable=true)
+     * @Assert\DateTime
      */
     private $fecha_publicacion;
 
@@ -82,6 +90,7 @@ class Oferta{
      * @var datetime $fecha_expiracion
      *
      * @ORM\Column(name="fecha_expiracion", type="datetime")
+     * @Assert\DateTime
      */
     private $fecha_expiracion;
 
@@ -96,6 +105,7 @@ class Oferta{
      * @var integer $umbral
      *
      * @ORM\Column(name="umbral", type="integer")
+     * @Assert\Min(0)
      */
     private $umbral;
 
@@ -402,7 +412,31 @@ class Oferta{
     public function getTienda(){
         return $this->tienda;
     }
+    
     public function __toString(){
         return $this->getNombre();
     }
+    /**
+     * @Assert\True(message= "La fecha de expiración debe ser posterior a la fecha de publicación")
+     */
+    public function isFechaValida(){
+        if ($this->fecha_publicacion == null || $this->fecha_expiracion == null) {
+            return true;
+        }
+        return $this->fecha_expiracion> $this->fecha_publicacion;
+    }
+    
+    public function subirFoto($directorioDestino){
+        if (null ===$this->foto){
+            return;
+        }
+        //$directorioDestino= __DIR__.'/../../../../web/uploads/images';
+        $nombreArchivoFoto= uniqid('cupon-').'-foto1.jpg';
+        
+        $this->foto->move($directorioDestino, $nombreArchivoFoto);
+        
+        $this->setFoto($nombreArchivoFoto);
+    }
+    
 }
+?>

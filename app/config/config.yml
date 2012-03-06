@@ -66,3 +66,4 @@ jms_security_extra:
 
 parameters:
     cupon.ciudad_por_defecto: 'malaga'
+    cupon.directorio.imagenes: %kernel.root_dir%/../web/uploads/images/
